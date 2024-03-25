@@ -274,7 +274,24 @@ void executePipedCommand(char **args, int num_args) {
     }
 }
 
-
+int check_jp2a_installed() {
+    int pid = fork();
+    if (pid == -1) {
+        perror("fork");
+        return -1;
+    } else if (pid == 0) {
+        execlp("jp2a", "jp2a", "--version", NULL);
+        exit(EXIT_FAILURE);
+    } else {
+        int status;
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
 
 void execute_command(char *args[]) {
     
@@ -369,7 +386,30 @@ else if (strcmp(args[0], "enc") == 0) {
             printf("Child process with PID %d finished.\n", pid);
         }
     }
-    else {
+    else if (strcmp(args[0], "asciiart") == 0) {
+        if (args[1] == NULL) {
+            printf("Usage: asciiart <image_file_path>\n");
+        } else {
+            int status;
+            int pid = fork();
+            if (pid == -1) {
+                perror("fork error");
+            } else if (pid == 0) {
+                if (execlp("jp2a", "jp2a", "--colors", args[1], NULL) == -1) {
+                    perror("Failed to execute jp2a. Make sure jp2a is installed.");
+                    printf("On Ubuntu/Debian: sudo apt-get install jp2a\n");
+                    printf("On Fedora: sudo dnf install jp2a\n");
+                    printf("On macOS (with Homebrew): brew install jp2a\n");
+                    exit(EXIT_FAILURE);
+                }
+            } else {
+                wait(&status);
+                if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
+                    printf("jp2a failed to convert the image. Please check the file path and ensure jp2a is installed.\n");
+                }
+            }
+        }
+    } else {
         printf("Error: Command not found.\n");
     }
 }
