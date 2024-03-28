@@ -4,6 +4,9 @@
 
 ## Directory Listing
 - `shell.c` : The C program for the shell implementation.
+- `helloArgs.c` : The C program for the helloArgs implementation to test fork and exec system calls.
+- `ton.jpg` : image file to test image display in the shell with jp2a call.
+- `text.txt and text2.txt` : text file to test file manipulation and text processing in the shell also encrypt and decrypt functionalities.
 
 ## Assignment Answers
 
@@ -48,4 +51,6 @@ sudo apt-get install jp2a
 
 ## Any sources/tutorials you have used to complete the assignment:
 
-[Guide to Code a Simple Shell in C](https://medium.com/@winfrednginakilonzo/guide-to-code-a-simple-shell-in-c-bd4a3a4c41cd)
+- [Guide to Code a Simple Shell in C](https://medium.com/@winfrednginakilonzo/guide-to-code-a-simple-shell-in-c-bd4a3a4c41cd)
+
+- [Shell program with pipes in C](https://stackoverflow.com/questions/33912024/shell-program-with-pipes-in-c)
