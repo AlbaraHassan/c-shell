@@ -44,7 +44,7 @@ sudo apt-get install jp2a
 ```
 
 ## Any challenges you encountered along the way
-???
+- Implementing the shell piping and handling redirection of the files.
 
 ## Any sources/tutorials you have used to complete the assignment:
 
